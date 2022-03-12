@@ -1,0 +1,14 @@
+#OS image for container aka base image
+FROM nginx:latest
+#metadata - who built me
+LABEL maintainer="bn****@yahoo.com"
+#update pkg manager and install webserver
+RUN apt-get update && apt-get install nginx -y
+#moves index.html file to nginx web file directory
+COPY ./index.html /usr/share/nginx/html/index.html
+#Sets working directory for html file
+WORKDIR /usr/share/nginx/html
+#web server listens on port 80, to open we declare container port
+EXPOSE 80
+#Place date and time at end of web page html file.
+RUN date +"%A, %b %d, %Y %H:%M:%S" >> /usr/share/nginx/html/index.html

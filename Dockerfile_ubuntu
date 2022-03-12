@@ -1,0 +1,11 @@
+#metadata - who built me
+LABEL maintainer="bn****@yahoo.com"
+#update pkg manager and install webserver
+RUN apt-get update && apt-get install nginx -y
+#moves index.html file to nginx web file directory
+COPY index.html /var/www/html
+#web server listens on port 80, to open we declare container port
+EXPOSE 80
+#Place date at end of html file
+RUN date +"%A, %b %d, %Y %H:%M:%S" >> /var/www/html/index.html
+CMD ["nginx","-g","daemon off;"]
